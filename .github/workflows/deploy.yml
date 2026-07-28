@@ -108,7 +108,7 @@ jobs:
           host: ${{ needs.terraform.outputs.vm_ip }}
           username: ubuntu
           key: ${{ secrets.SSH_PRIVATE_KEY }}
-          command_timeout: 900000
+          command_timeout: 15m
           script: |
             if [ -d /opt/freelancescope/.git ]; then
               cd /opt/freelancescope && git pull origin master
