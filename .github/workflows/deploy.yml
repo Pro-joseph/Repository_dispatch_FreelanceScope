@@ -83,7 +83,7 @@ jobs:
             });
 
   deploy:
-    needs: [terraform]
+    needs: [terraform, dispatch-laravel, dispatch-angular]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v5
