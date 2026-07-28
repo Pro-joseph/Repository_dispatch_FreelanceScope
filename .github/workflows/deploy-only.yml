@@ -9,6 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: appleboy/ssh-action@v1.2.0
+        timeout: 15m
         with:
           host: 35.181.137.137
           username: ubuntu

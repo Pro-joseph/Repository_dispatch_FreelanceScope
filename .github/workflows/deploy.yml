@@ -103,6 +103,7 @@ jobs:
 
       - name: Deploy via SSH
         uses: appleboy/ssh-action@v1.2.0
+        timeout: 15m
         with:
           host: ${{ needs.terraform.outputs.vm_ip }}
           username: ubuntu
