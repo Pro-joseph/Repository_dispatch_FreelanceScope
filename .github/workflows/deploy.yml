@@ -44,8 +44,6 @@ jobs:
 
           terraform import $VARS aws_key_pair.freelancescope freelancescope-key 2>/dev/null || true
 
-          terraform taint aws_key_pair.freelancescope 2>/dev/null || true
-
           terraform apply -auto-approve $VARS
 
       - id: vmip
