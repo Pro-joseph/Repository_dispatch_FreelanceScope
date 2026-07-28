@@ -16,4 +16,7 @@ jobs:
           script: |
             cd /opt/freelancescope
             docker compose pull
-            docker compose up -d
+            docker compose up -d --wait
+            echo "Running migrations..."
+            docker compose exec -T app php artisan migrate --force
+            echo "Deploy complete!"
