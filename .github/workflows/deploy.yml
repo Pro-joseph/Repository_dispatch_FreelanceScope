@@ -108,8 +108,14 @@ jobs:
           username: ubuntu
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
+            if [ -d /opt/freelancescope/.git ]; then
+              cd /opt/freelancescope && git pull origin master
+            else
+              sudo mkdir -p /opt/freelancescope
+              sudo git clone https://github.com/Pro-joseph/Repository_dispatch_FreelanceScope.git /opt/freelancescope
+            fi
+            sudo chown -R ubuntu:ubuntu /opt/freelancescope
             cd /opt/freelancescope
-            git pull origin master
             cat > .env << ENVEOF
             APP_KEY=${{ secrets.APP_KEY }}
             APP_DEBUG=false
@@ -123,5 +129,6 @@ jobs:
             DB_ROOT_PASSWORD=${{ secrets.DB_ROOT_PASSWORD }}
             GROQ_API_KEY=${{ secrets.GROQ_API_KEY }}
             ENVEOF
+            sudo systemctl start docker 2>/dev/null || true
             docker compose pull
             docker compose up -d

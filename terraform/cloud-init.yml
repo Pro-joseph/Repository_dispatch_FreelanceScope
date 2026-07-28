@@ -7,6 +7,3 @@ runcmd:
   - usermod -aG docker ubuntu
   - systemctl enable docker
   - systemctl start docker
-  - git clone https://github.com/Pro-joseph/Repository_dispatch_FreelanceScope.git /opt/freelancescope || true
-  - cd /opt/freelancescope && docker compose pull || true
-  - cd /opt/freelancescope && docker compose up -d || true
