@@ -112,10 +112,10 @@ jobs:
               cd /opt/freelancescope && git pull origin master
             else
               sudo rm -rf /opt/freelancescope
-              sudo git clone https://github.com/Pro-joseph/Repository_dispatch_FreelanceScope.git /opt/freelancescope
+              sudo git clone https://x-access-token:${{ secrets.GH_PAT }}@github.com/Pro-joseph/Repository_dispatch_FreelanceScope.git /opt/freelancescope
             fi
-            sudo chown -R ubuntu:ubuntu /opt/freelancescope
-            cd /opt/freelancescope
+            sudo chown -R ubuntu:ubuntu /opt/freelancescope || true
+            cd /opt/freelancescope 2>/dev/null || exit 1
             cat > .env << ENVEOF
             APP_KEY=${{ secrets.APP_KEY }}
             APP_DEBUG=false
