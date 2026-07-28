@@ -22,6 +22,7 @@ jobs:
       - env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_REGION: eu-west-3
         working-directory: terraform
         run: |
           VARS="-var ssh_public_key_path=./id_ed25519.pub"
@@ -50,6 +51,7 @@ jobs:
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_REGION: eu-west-3
         run: echo "ip=$(terraform output -raw public_ip)" >> $GITHUB_OUTPUT
 
   dispatch-laravel:
