@@ -95,6 +95,7 @@ jobs:
             git pull origin master
             cat > .env << ENVEOF
             APP_KEY=${{ secrets.APP_KEY }}
+            APP_DEBUG=false
             APP_URL=http://${{ needs.terraform.outputs.vm_ip }}
             DB_CONNECTION=mysql
             DB_HOST=db
