@@ -33,11 +33,16 @@ jobs:
             --create-bucket-configuration LocationConstraint=eu-west-3 \
             2>/dev/null || true
 
-          # Clean up stale resources from previous failed runs
-          aws ec2 delete-security-group --group-name freelancescope-sg 2>/dev/null || true
-          aws ec2 delete-key-pair --key-name freelancescope-key 2>/dev/null || true
-
           terraform init
+
+          # Import existing resources so Terraform adopts them
+          SG_ID=$(aws ec2 describe-security-groups --filters Name=group-name,Values=freelancescope-sg --query 'SecurityGroups[0].GroupId' --output text)
+          if [ "$SG_ID" != "None" ] && [ -n "$SG_ID" ]; then
+            terraform import $VARS aws_security_group.freelancescope "$SG_ID" 2>/dev/null || true
+          fi
+
+          terraform import $VARS aws_key_pair.freelancescope freelancescope-key 2>/dev/null || true
+
           terraform apply -auto-approve $VARS
 
       - id: vmip
