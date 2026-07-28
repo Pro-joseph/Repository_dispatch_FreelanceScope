@@ -111,7 +111,7 @@ jobs:
             if [ -d /opt/freelancescope/.git ]; then
               cd /opt/freelancescope && git pull origin master
             else
-              sudo mkdir -p /opt/freelancescope
+              sudo rm -rf /opt/freelancescope
               sudo git clone https://github.com/Pro-joseph/Repository_dispatch_FreelanceScope.git /opt/freelancescope
             fi
             sudo chown -R ubuntu:ubuntu /opt/freelancescope
