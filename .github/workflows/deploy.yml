@@ -64,7 +64,7 @@ jobs:
           script: |
             await github.rest.repos.createDispatchEvent({
               owner: 'Pro-joseph',
-              repo: 'FreelanceScope_Laravel',
+              repo: 'FreelanceScope',
               event_type: 'build-and-push',
             });
 
