@@ -10,7 +10,7 @@ variable "ssh_public_key_path" {
 
 variable "instance_type" {
   type    = string
-  default = "t2.micro"
+  default = "t3.micro"
 }
 
 variable "admin_username" {
