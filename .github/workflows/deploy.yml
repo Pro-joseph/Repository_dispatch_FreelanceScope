@@ -103,12 +103,12 @@ jobs:
 
       - name: Deploy via SSH
         uses: appleboy/ssh-action@v1.2.0
-        timeout-minutes: 15
+        timeout-minutes: 30
         with:
           host: ${{ needs.terraform.outputs.vm_ip }}
           username: ubuntu
           key: ${{ secrets.SSH_PRIVATE_KEY }}
-          command_timeout: 15m
+          command_timeout: 30m
           script: |
             if [ -d /opt/freelancescope/.git ]; then
               cd /opt/freelancescope && git pull origin master

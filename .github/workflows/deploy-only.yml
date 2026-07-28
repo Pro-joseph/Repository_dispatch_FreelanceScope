@@ -9,12 +9,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: appleboy/ssh-action@v1.2.0
-        timeout-minutes: 15
+        timeout-minutes: 30
         with:
           host: 35.181.137.137
           username: ubuntu
           key: ${{ secrets.EC2_SSH_KEY }}
-          command_timeout: 15m
+          command_timeout: 30m
           script: |
             cd /opt/freelancescope
             docker compose pull
