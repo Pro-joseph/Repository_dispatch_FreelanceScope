@@ -21,6 +21,10 @@ services:
       PHP_FPM_PM_START_SERVERS: 2
       PHP_FPM_PM_MIN_SPARE_SERVERS: 1
       PHP_FPM_PM_MAX_SPARE_SERVERS: 3
+    deploy:
+      resources:
+        limits:
+          memory: 256M
     depends_on:
       db:
         condition: service_healthy
@@ -38,6 +42,10 @@ services:
       PHP_FPM_PM_START_SERVERS: 2
       PHP_FPM_PM_MIN_SPARE_SERVERS: 1
       PHP_FPM_PM_MAX_SPARE_SERVERS: 3
+    deploy:
+      resources:
+        limits:
+          memory: 128M
     depends_on:
       db:
         condition: service_healthy
@@ -60,6 +68,10 @@ services:
       MYSQL_USER: freelancescope
       MYSQL_PASSWORD: "${DB_PASSWORD}"
       MYSQL_ROOT_PASSWORD: "${DB_ROOT_PASSWORD}"
+    deploy:
+      resources:
+        limits:
+          memory: 512M
     volumes:
       - mysql_data:/var/lib/mysql
       - ./db/my.cnf:/etc/mysql/conf.d/my.cnf

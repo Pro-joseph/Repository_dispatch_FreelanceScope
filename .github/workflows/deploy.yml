@@ -29,6 +29,7 @@ jobs:
             APP_DEBUG=false
             APP_URL=http://${{ secrets.EC2_HOST }}
             CACHE_STORE=file
+            TELESCOPE_ENABLED=false
             DB_CONNECTION=mysql
             DB_HOST=db
             DB_PORT=3306
