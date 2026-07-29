@@ -16,6 +16,13 @@ jobs:
           key: ${{ secrets.EC2_SSH_KEY }}
           command_timeout: 30m
           script: |
+            if [ -d /opt/freelancescope/.git ]; then
+              cd /opt/freelancescope && git pull origin master
+            else
+              sudo rm -rf /opt/freelancescope
+              sudo git clone https://x-access-token:${{ secrets.GH_PAT }}@github.com/Pro-joseph/Repository_dispatch_FreelanceScope.git /opt/freelancescope
+            fi
+            sudo chown -R ubuntu:ubuntu /opt/freelancescope || true
             cd /opt/freelancescope
             cat > .env << ENVEOF
             APP_KEY=${{ secrets.APP_KEY }}
