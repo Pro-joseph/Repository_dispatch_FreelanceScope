@@ -56,5 +56,8 @@ jobs:
               sleep 5
             done
 
+            docker compose exec -T db mysql -uroot -p"$DB_ROOT_PASSWORD" \
+              -e "GRANT ALL ON freelancescope.* TO 'freelancescope'@'%'; FLUSH PRIVILEGES;" 2>/dev/null || true
+
             docker compose exec -T app php artisan migrate --force
             echo "Deploy complete!"
