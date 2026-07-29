@@ -30,8 +30,31 @@ jobs:
             DB_ROOT_PASSWORD=${{ secrets.DB_ROOT_PASSWORD }}
             GROQ_API_KEY=${{ secrets.GROQ_API_KEY }}
             ENVEOF
+            fallocate -l 1G /swapfile 2>/dev/null
+            chmod 600 /swapfile 2>/dev/null
+            mkswap /swapfile 2>/dev/null
+            swapon /swapfile 2>/dev/null
+
             docker compose pull
-            docker compose up -d --wait --wait-timeout 120
-            echo "Running migrations..."
+
+            docker compose up -d db
+            echo "Waiting for MySQL..."
+            for i in $(seq 1 60); do
+              if docker compose exec -T db mysqladmin ping -h localhost --silent 2>/dev/null; then
+                echo "DB ready"
+                break
+              fi
+              sleep 5
+            done
+
+            docker compose up -d
+            for i in $(seq 1 30); do
+              if docker compose exec -T app php artisan --version >/dev/null 2>&1; then
+                echo "App ready"
+                break
+              fi
+              sleep 5
+            done
+
             docker compose exec -T app php artisan migrate --force
             echo "Deploy complete!"
