@@ -24,7 +24,7 @@ jobs:
             fi
             sudo chown -R ubuntu:ubuntu /opt/freelancescope || true
             cd /opt/freelancescope
-            cat > .env << ENVEOF
+            cat > .env << 'ENVEOF'
             APP_KEY=${{ secrets.APP_KEY }}
             APP_DEBUG=false
             APP_URL=http://${{ secrets.EC2_HOST }}
