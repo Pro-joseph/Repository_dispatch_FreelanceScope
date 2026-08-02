@@ -1,8 +1,20 @@
 name: Deploy
 
 on:
-  repository_dispatch:
-    types: [deploy]
+  workflow_dispatch:
+    inputs:
+      deploy_api:
+        description: 'Pull + deploy the Laravel API image?'
+        type: boolean
+        default: true
+      deploy_angular:
+        description: 'Pull + deploy the Angular image?'
+        type: boolean
+        default: true
+
+concurrency:
+  group: deploy
+  cancel-in-progress: false
 
 jobs:
   deploy:
@@ -15,6 +27,7 @@ jobs:
           username: ubuntu
           key: ${{ secrets.EC2_SSH_KEY }}
           command_timeout: 30m
+          envs: DEPLOY_API, DEPLOY_ANGULAR
           script: |
             if [ -d /opt/freelancescope/.git ]; then
               cd /opt/freelancescope && git pull origin master
@@ -45,7 +58,12 @@ jobs:
             mkswap /swapfile 2>/dev/null
             swapon /swapfile 2>/dev/null
 
-            docker compose pull
+            if [ "$DEPLOY_API" = "true" ]; then
+              docker compose pull app
+            fi
+            if [ "$DEPLOY_ANGULAR" = "true" ]; then
+              docker compose pull angular
+            fi
 
             docker compose up -d db
             echo "Waiting for MySQL..."
