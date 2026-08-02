@@ -21,6 +21,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: appleboy/ssh-action@v1.2.0
+        env:
+          DEPLOY_API: ${{ inputs.deploy_api }}
+          DEPLOY_ANGULAR: ${{ inputs.deploy_angular }}
         timeout-minutes: 30
         with:
           host: ${{ secrets.EC2_HOST }}
