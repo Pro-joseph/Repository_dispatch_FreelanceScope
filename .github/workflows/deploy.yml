@@ -88,4 +88,6 @@ jobs:
               -e "GRANT ALL ON freelancescope.* TO 'freelancescope'@'%'; FLUSH PRIVILEGES;" 2>/dev/null || true
 
             docker compose exec -T app php artisan migrate --force
+
+            docker compose restart nginx
             echo "Deploy complete!"
