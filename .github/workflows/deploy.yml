@@ -46,7 +46,6 @@ jobs:
             APP_URL=http://${{ secrets.EC2_HOST }}
             CACHE_STORE=file
             TELESCOPE_ENABLED=true
-            TELESCOPE_KEY=${{ secrets.TELESCOPE_KEY }}
             DB_CONNECTION=mysql
             DB_HOST=db
             DB_PORT=3306
