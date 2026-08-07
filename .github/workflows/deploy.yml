@@ -55,6 +55,7 @@ jobs:
             DB_ROOT_PASSWORD=${{ secrets.DB_ROOT_PASSWORD }}
             OPENAI_API_KEY=${{ secrets.OPENAI_API_KEY }}
             OPENAI_BASE_URL=https://api.groq.com/openai/v1
+            DB_QUEUE_RETRY_AFTER=600
             ENVEOF
             fallocate -l 1G /swapfile 2>/dev/null
             chmod 600 /swapfile 2>/dev/null

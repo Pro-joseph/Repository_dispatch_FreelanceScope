@@ -35,7 +35,7 @@ services:
   queue:
     image: joseph0070/freelancescope:api-latest
     container_name: freelancescope-queue
-    command: sh -c "php artisan queue:work --tries=3"
+    command: sh -c "php artisan queue:work --tries=3 --timeout=300"
     env_file: .env
     environment:
       PHP_FPM_PM_MAX_CHILDREN: 5
